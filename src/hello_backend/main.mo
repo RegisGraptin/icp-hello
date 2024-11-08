@@ -1,5 +1,16 @@
+import Array "mo:base/Array";
+
 actor {
-  public query func greet(name : Text) : async Text {
-    return "Hello, " # name # "!";
+  
+  var names : [Text] = [];
+
+  public func greet(name : Text) : async Text {
+    names := Array.append(names, [name]);
+    return "hello, " # name # "!";
   };
+  
+  public query func submittedNames() : async [Text] {
+    return names;
+  };
+
 };

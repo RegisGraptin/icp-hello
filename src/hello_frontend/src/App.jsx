@@ -3,6 +3,7 @@ import { hello_backend } from 'declarations/hello_backend';
 
 function App() {
   const [greeting, setGreeting] = useState('');
+  const [allNames, setAllNames] = useState([]);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -11,6 +12,13 @@ function App() {
       setGreeting(greeting);
     });
     return false;
+  }
+
+  function showAllName (){
+    hello_backend.submittedNames().then((names) => {
+      console.log(names);
+      setAllNames(names);
+    })
   }
 
   return (
@@ -24,6 +32,15 @@ function App() {
         <button type="submit">Click Me!</button>
       </form>
       <section id="greeting">{greeting}</section>
+
+      {allNames && allNames.map((item, key) => {
+        return <>
+          <p key={key}>{item}</p>
+        </>
+      })}
+
+      <button onClick={showAllName}>Show all names</button>
+
     </main>
   );
 }
